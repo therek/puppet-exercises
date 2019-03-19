@@ -1,0 +1,7 @@
+---
+:cachedir: '/var/cache/r10k'
+
+:sources:
+  :puppet-exercies:
+    remote: 'https://github.com/therek/puppet-exercises.git'
+    basedir: '/etc/puppetlabs/code/environments'
