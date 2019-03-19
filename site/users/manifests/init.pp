@@ -1,4 +1,7 @@
 class users {
   include users::root
-  include users::admins
+
+  class { 'users::admins':
+    admins => [ 'jack', 'jill' ],
+  }
 }

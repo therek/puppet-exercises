@@ -1,8 +1,6 @@
-class users::admins {
+class users::admins (Array $admins) {
 
-  $administrators = [ 'jack', 'jill' ]
-
-  $administrators.each |$admin| {
+  $admins.each |$admin| {
     user { $admin:
       ensure     => 'present',
       managehome => true,
