@@ -6,5 +6,4 @@ mod 'puppetlabs-stdlib', '5.2.0'
 
 # Modules dependencies for r10k
 mod 'puppetlabs-concat'
-mod 'puppetlabs-stdlib'
 mod 'puppetlabs-translate'
