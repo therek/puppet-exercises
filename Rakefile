@@ -46,6 +46,7 @@ namespace :test do
     modules.each do |mod|
       sub = dir.join(mod)
       rakefile = sub.join('Rakefile')
+      LOG.info "Using Rakefile: #{rakefile}"
       shell 'bundle exec rake test', sub if File.file? rakefile
     end
   end
