@@ -12,6 +12,7 @@ Vagrant.configure(2) do |config|
     master.vm.network  "private_network", type: "dhcp"
 
     config.vm.provision 'shell', path: 'scripts/install.sh'
+    config.vm.provision "shell", inline: "yum -y install puppetserver"
   end
 
   config.vm.define "agent1" do |agent|
@@ -24,5 +25,6 @@ Vagrant.configure(2) do |config|
     agent.vm.network  "private_network", type: "dhcp"
 
     config.vm.provision 'shell', path: 'scripts/install.sh'
+    config.vm.provision "shell", inline: "yum -y install puppet-agent"
   end
 end
