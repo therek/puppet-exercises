@@ -1,0 +1,54 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.define "master", primary: true do |master|
+    master.vm.box = "dummy"
+    master.vm.allowed_synced_folder_types = [:rsync]
+
+    master.vm.provider :aws do |aws, override|
+      aws.access_key_id     = "ACCESS_KEY"
+      aws.secret_access_key = "SECRET_ACCESS_KEY"
+      aws.keypair_name      = "SSH_KEY_PAIR"
+
+      aws.region            = "eu-west-1"
+      aws.instance_type     = "t2.medium"
+      aws.ami               = "ami-0e12cbde3e77cbb98" #RedHat 7.6
+      aws.security_groups   = "SECURITY_GROUP"
+
+      aws.tags = {
+          "Name"    => "pemaster",
+          "Creator" => 'vagrant',
+      }
+
+      override.ssh.username         = "ec2-user"
+      override.ssh.private_key_path = "~/.ssh/PRIV_SSH_KEY"
+    end
+
+    master.vm.provision 'shell', path: 'install.sh'
+  end
+
+  config.vm.define "agent1" do |agent|
+    agent.vm.box = "dummy"
+    agent.vm.allowed_synced_folder_types = [:rsync]
+
+    agent.vm.provider :aws do |aws, override|
+      aws.access_key_id     = "ACCESS_KEY"
+      aws.secret_access_key = "SECRET_ACCESS_KEY"
+      aws.keypair_name      = "SSH_KEY_PAIR"
+
+      aws.region            = "eu-west-1"
+      aws.instance_type     = "t2.small"
+      aws.ami               = "ami-0e12cbde3e77cbb98" #RedHat 7.6
+      aws.security_groups   = "SECURITY_GROUP"
+
+      aws.tags = {
+          "Name"    => "peagent1",
+          "Creator" => 'vagrant',
+      }
+
+      override.ssh.username         = "ec2-user"
+      override.ssh.private_key_path = "~/.ssh/PRIV_SSH_KEY"
+    end
+  end
+end
